@@ -1,0 +1,22 @@
+.video-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.video-card-info {
+  margin-top: 12px;
+}
+
+.video-card-title {
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.video-card-description {
+  font-size: 14px;
+  color: #606060;
+  text-align: center;
+}
