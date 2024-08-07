@@ -12,7 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3333/videos')
+      .get('https://backend-clipstream.vercel.app/videos')
       .then((response) => {
         setVideos(response.data)
       })

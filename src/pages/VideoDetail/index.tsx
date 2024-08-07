@@ -19,7 +19,7 @@ export const VideoDetail = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3333/videos/${id}`)
+        .get(`https://backend-clipstream.vercel.app/videos/${id}`)
         .then((response) => {
           if (response && response.data) {
             setVideo(response.data)
@@ -40,7 +40,7 @@ export const VideoDetail = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3333/videos/${id}/comments`)
+        .get(`https://backend-clipstream.vercel.app/videos/${id}/comments`)
         .then((response) => {
           setSendComments(response.data.comments)
           setCountComments(response.data.comments.length)
@@ -53,7 +53,7 @@ export const VideoDetail = () => {
 
   const handleLike = () => {
     axios
-      .post(`http://localhost:3333/videos/${id}/like`)
+      .post(`https://backend-clipstream.vercel.app/videos/${id}/like`)
       .then((response) => {
         setLikes(response.data.likes)
       })
@@ -64,7 +64,7 @@ export const VideoDetail = () => {
 
   const handleDislike = () => {
     axios
-      .post(`http://localhost:3333/videos/${id}/dislike`)
+      .post(`https://backend-clipstream.vercel.app/videos/${id}/dislike`)
       .then((response) => {
         setDislikes(response.data.dislikes)
       })
@@ -81,7 +81,7 @@ export const VideoDetail = () => {
     event.preventDefault()
     const newComment = { content: newComments }
     axios
-      .post(`http://localhost:3333/videos/${id}/comment`, newComment)
+      .post(`https://backend-clipstream.vercel.app/videos/${id}/comment`, newComment)
       .then((response) => {
         console.log(response)
         const newComment = response.data.data.comment
