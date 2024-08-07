@@ -35,7 +35,7 @@ export const App = () => {
       <header className="header-container">
         <P5Sketch>
           <MenuIcon className="menu-icon" />
-          <Title className="video-title">Meu Youtube</Title>
+          <Title className="video-title">ClipStream</Title>
           <input
             className="video-input-search"
             type="text"
