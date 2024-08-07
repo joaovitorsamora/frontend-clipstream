@@ -138,9 +138,31 @@ export const VideoDetail = () => {
               <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
                 {sendComments.map((comment, index) => (
                   <li style={{ display: 'block' }} key={index}>
-                    <img src="../../assets/user-avatar.svg" style={{ marginRight: '1rem' }} />
-                    <strong>user15541656515</strong>
-                    <p style={{ paddingLeft: '32px' }}>{comment.content}</p>
+                    <div style={{ display: 'flex', padding: '1rem 0', flexDirection: 'column' }}>
+                      <img src="/user-avatar.png" style={{ marginRight: '1rem', width: '43px' }} />
+                      <strong
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          paddingLeft: '60px',
+                          marginTop: '-40px',
+                        }}
+                      >
+                        {`user${Math.floor(Math.random() * 1000000000)}`}
+                      </strong>
+                      <p
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          paddingLeft: '60px',
+                          paddingTop: '14px',
+                        }}
+                      >
+                        {comment.content}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>
