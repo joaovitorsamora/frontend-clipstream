@@ -6,13 +6,14 @@ import { useParams } from 'react-router-dom'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 
+const generateUsername = () => `user${Math.floor(Math.random() * 1000000000)}`
 export const VideoDetail = () => {
   const [video, setVideo] = useState<VideoProps | null>(null)
   const { id } = useParams<{ id: string }>()
   const [likes, setLikes] = useState<number>(0)
   const [dislikes, setDislikes] = useState<number>(0)
   const [countComments, setCountComments] = useState<number>(0)
-  const [sendComments, setSendComments] = useState<{ content: string }[]>([])
+  const [sendComments, setSendComments] = useState<{ content: string; user: string }[]>([])
 
   const [newComments, setNewComments] = useState<string>('')
 
@@ -79,13 +80,13 @@ export const VideoDetail = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    const newComment = { content: newComments }
+    const newComment = { content: newComments, user: generateUsername() }
     axios
       .post(`https://backend-clipstream.vercel.app/videos/${id}/comment`, newComment)
       .then((response) => {
         console.log(response)
         const newComment = response.data.data.comment
-        setSendComments((prevComments) => [...prevComments, { content: newComment }])
+        setSendComments((prevComments) => [...prevComments, newComment])
         setCountComments((prevCount) => prevCount + 1)
         setNewComments('')
       })
@@ -149,7 +150,7 @@ export const VideoDetail = () => {
                           marginTop: '-40px',
                         }}
                       >
-                        {`user${Math.floor(Math.random() * 1000000000)}`}
+                        {comment.user}
                       </strong>
                       <p
                         style={{
