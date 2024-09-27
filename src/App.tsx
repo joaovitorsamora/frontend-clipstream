@@ -48,7 +48,7 @@ export const App = () => {
       <section className="video-list">
         {data.map((video, index) => (
           <div className="card" key={index}>
-            {<Card id={video.id} url={video.url} title={video.title} />}
+            <Card id={video.id} url={video.url} title={video.title} />
           </div>
         ))}
       </section>
