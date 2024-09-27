@@ -46,11 +46,21 @@ export const App = () => {
         </P5Sketch>
       </header>
       <section className="video-list">
-        {data.map((video, index) => (
-          <div className="card" key={index}>
-            <Card id={video.id} url={video.url} title={video.title} />
-          </div>
-        ))}
+        {data
+          .map((video, index) => (
+            <div className="card" key={index}>
+              <Card id={video.id} url={video.url} title={video.title} />
+            </div>
+          ))
+          .concat(
+            videos.length % 2 === 1
+              ? [
+                  <div className="card" key={videos.length}>
+                    <Card id={videos[0].id} url={videos[0].url} title={videos[0].title} />
+                  </div>,
+                ]
+              : []
+          )}
       </section>
     </div>
   )
