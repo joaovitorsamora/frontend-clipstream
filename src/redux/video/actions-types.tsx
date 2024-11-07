@@ -1,0 +1,2 @@
+export const SET_VIDEOS = 'SET_VIDEOS'
+export const SET_SEARCH_TERMS = 'SET_SEARCH_TERMS'

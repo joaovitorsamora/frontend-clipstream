@@ -1,12 +1,10 @@
 import React from 'react'
-interface TitleProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TitleProps {
+  level?: 1 | 2 | 3 | 4 | 5 | 6
   children: React.ReactNode
-  style?: React.CSSProperties
+  className?: string
 }
-export const Title: React.FC<TitleProps> = ({ children, style, ...props }) => {
-  return (
-    <div style={style} {...props}>
-      {children}
-    </div>
-  )
+export const Title: React.FC<TitleProps> = ({ level, children, className }) => {
+  const Tag = `h${level}` as keyof JSX.IntrinsicElements
+  return <Tag className={className}>{children}</Tag>
 }

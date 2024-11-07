@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { VideoProps } from '../types'
+import { VideoProps } from '../../types'
 import './styles.css'
 
 export const Card: React.FC<VideoProps> = ({ id, url, title }) => {
@@ -11,11 +11,11 @@ export const Card: React.FC<VideoProps> = ({ id, url, title }) => {
         src={url}
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-        style={{ pointerEvents: 'none', width: '100%', borderRadius: '4px', border: 'none' }}
+        className="iframe-card"
       />
-      <div className="video-card-info">
-        <p className="video-card-title">{title}</p>
-      </div>
+      <section>
+        <p>{title}</p>
+      </section>
     </Link>
   )
 }

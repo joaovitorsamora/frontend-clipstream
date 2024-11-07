@@ -15,12 +15,21 @@ export const P5Sketch: React.FC<P5SketchProps> = ({ children, ...props }) => {
       const maxLines = 60
 
       p.setup = () => {
-        p.createCanvas(p.windowWidth, 200, p.WEBGL)
+        if (sketchRef.current) {
+          const { offsetWidth, offsetHeight } = sketchRef.current
+          p.createCanvas(offsetWidth, offsetHeight, p.WEBGL)
+        }
+      }
+
+      p.windowResized = () => {
+        if (sketchRef.current) {
+          const { offsetWidth, offsetHeight } = sketchRef.current
+          p.resizeCanvas(offsetWidth, offsetHeight)
+        }
       }
 
       p.draw = () => {
         p.background('#000')
-
         p.rotateY(p.frameCount * 0.01)
 
         if (lines.length < maxLines) {
@@ -55,6 +64,7 @@ export const P5Sketch: React.FC<P5SketchProps> = ({ children, ...props }) => {
           this.angleXY = p.random(0, p.TWO_PI)
           this.angleZ = p.random(0, p.TWO_PI)
         }
+
         display(p: p5) {
           p.stroke(255)
           p.line(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2)
@@ -72,10 +82,22 @@ export const P5Sketch: React.FC<P5SketchProps> = ({ children, ...props }) => {
       }
     }
 
-    const p5Instance = new p5(sketch, sketchRef.current!)
+    const createP5Instance = () => {
+      if (sketchRef.current) {
+        const p5Instance = new p5(sketch, sketchRef.current)
+        return p5Instance
+      }
+    }
+
+    const timeoutId = setTimeout(createP5Instance, 0)
 
     return () => {
-      p5Instance.remove()
+      clearTimeout(timeoutId)
+      // Se a instância do P5 estiver criada, removê-la
+      if (sketchRef.current) {
+        const p5Instance = new p5(sketch, sketchRef.current)
+        p5Instance.remove()
+      }
     }
   }, [])
 

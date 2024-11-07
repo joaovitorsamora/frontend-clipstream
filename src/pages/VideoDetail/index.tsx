@@ -1,62 +1,63 @@
 import React, { useState, useEffect } from 'react'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import './styles.css'
-import { VideoProps } from '../../components/types'
 import { useParams } from 'react-router-dom'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
+import { useDispatch, useSelector } from 'react-redux'
+import { addComment, setDislikes, setLikes, setVideoDetail } from '../../redux/video-detail/actions'
+import rootReducer from '../../redux/root-reducer'
+import { Comment } from '../../redux/video-detail/reducer'
+import { Title } from '../../components'
 
 const generateUsername = () => `user${Math.floor(Math.random() * 1000000000)}`
 export const VideoDetail = () => {
-  const [video, setVideo] = useState<VideoProps | null>(null)
   const { id } = useParams<{ id: string }>()
-  const [likes, setLikes] = useState<number>(0)
-  const [dislikes, setDislikes] = useState<number>(0)
   const [countComments, setCountComments] = useState<number>(0)
-  const [sendComments, setSendComments] = useState<{ content: string; user: string }[]>([])
-
   const [newComments, setNewComments] = useState<string>('')
+  const dispatch = useDispatch()
+
+  const { videos, likes, dislikes, comments } = useSelector(
+    (state: ReturnType<typeof rootReducer>) => state.videoDetailReducer
+  )
+  console.log(comments)
 
   useEffect(() => {
     if (id) {
       axios
         .get(`https://backend-clipstream.vercel.app/videos/${id}`)
         .then((response) => {
-          if (response && response.data) {
-            setVideo(response.data)
-            setLikes(response.data.likes)
-            setDislikes(response.data.dislikes)
-            setSendComments(response.data.comments)
-            setCountComments(response.data.comments.length)
-          } else {
-            console.error('Resposta indefinida ou malformada')
-          }
+          dispatch(setVideoDetail(response.data))
+          dispatch(setLikes(response.data.likes))
+          dispatch(setDislikes(response.data.dislikes))
+          dispatch(addComment(response.data.comments))
+          setCountComments(response.data.comments.length)
         })
         .catch((error) => {
           console.error(error.response ? error.response.data : error.message)
         })
     }
-  }, [id])
+  }, [id, dispatch])
 
-  useEffect(() => {
-    if (id) {
-      axios
-        .get(`https://backend-clipstream.vercel.app/videos/${id}/comments`)
-        .then((response) => {
-          setSendComments(response.data.comments)
-          setCountComments(response.data.comments.length)
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar comentários:', error)
-        })
-    }
-  }, [id])
+  // useEffect(() => {
+  //   if (id) {
+  //     axios
+  //       .get(`https://backend-clipstream.vercel.app/videos/${id}/comments`)
+  //       .then((response) => {
+  //         dispatch(addComment(response.data.comments))
+  //         setCountComments(response.data.comments.length)
+  //       })
+  //       .catch((error) => {
+  //         console.error('Erro ao buscar comentários:', error)
+  //       })
+  //   }
+  // }, [id, dispatch])
 
   const handleLike = () => {
     axios
       .post(`https://backend-clipstream.vercel.app/videos/${id}/like`)
       .then((response) => {
-        setLikes(response.data.likes)
+        dispatch(setLikes(response.data.likes))
       })
       .catch((error) => {
         console.error(error)
@@ -67,7 +68,7 @@ export const VideoDetail = () => {
     axios
       .post(`https://backend-clipstream.vercel.app/videos/${id}/dislike`)
       .then((response) => {
-        setDislikes(response.data.dislikes)
+        dispatch(setDislikes(response.data.dislikes))
       })
       .catch((error) => {
         console.error(error)
@@ -80,13 +81,13 @@ export const VideoDetail = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    const newComment = { content: newComments, user: generateUsername() }
+    const newUserComments = { content: newComments, user: generateUsername() }
     axios
-      .post(`https://backend-clipstream.vercel.app/videos/${id}/comment`, newComment)
+      .post(`https://backend-clipstream.vercel.app/videos/${id}/comment`, newUserComments)
       .then((response) => {
         console.log(response)
         const newComment = response.data.data.comment
-        setSendComments((prevComments) => [...prevComments, newComment])
+        dispatch(addComment(newComment))
         setCountComments((prevCount) => prevCount + 1)
         setNewComments('')
       })
@@ -96,34 +97,37 @@ export const VideoDetail = () => {
   }
 
   return (
-    <div className="video-detail">
-      {video && (
-        <>
-          <div className="video-player">
+    <section className="main-container">
+      {videos && (
+        <div key={videos.id}>
+          <div className="container-video-player">
             <iframe
-              key={video.id}
-              src={video.url}
-              title={video.title}
+              key={videos.id}
+              src={videos.url}
+              title={videos.title}
               width="800"
               height="450"
-              style={{ maxWidth: '100%' }}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
             ></iframe>
           </div>
           <div>
-            <div className="video-info">
-              <h2>{video.title}</h2>
-              <p style={{ color: '#c9c9c9', marginTop: '0.5rem' }}>{video.description}</p>
+            <header className="container-info">
+              <Title level={2}>{videos.title}</Title>
+              <Title level={5} className="paragraph-video-info">
+                {videos.description}
+              </Title>
               <div className="video-actions">
                 <button className="button-like" onClick={handleLike}>
-                  <ThumbUpOffAltIcon style={{ marginRight: '8px' }} /> {likes}
+                  <ThumbUpOffAltIcon className="thumbup-icon" /> {likes}
                 </button>
                 <button className="button-dislike" onClick={handleDislike}>
-                  <ThumbDownOffAltIcon style={{ marginRight: '8px' }} /> {dislikes}
+                  <ThumbDownOffAltIcon className="thumbdown-icon" /> {dislikes}
                 </button>
               </div>
-            </div>
+            </header>
             <div className="video-comments">
-              <h3>{countComments} Comentários</h3>
+              <Title level={3}>{countComments} Comentários</Title>
               <form onSubmit={handleSubmit}>
                 <input
                   className="comment-input"
@@ -136,41 +140,21 @@ export const VideoDetail = () => {
                   Enviar
                 </button>
               </form>
-              <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                {sendComments.map((comment, index) => (
-                  <li style={{ display: 'block' }} key={index}>
-                    <div style={{ display: 'flex', padding: '1rem 0', flexDirection: 'column' }}>
-                      <img src="/user-avatar.png" style={{ marginRight: '1rem', width: '43px' }} />
-                      <strong
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          paddingLeft: '60px',
-                          marginTop: '-40px',
-                        }}
-                      >
-                        {comment.user}
-                      </strong>
-                      <p
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          paddingLeft: '60px',
-                          paddingTop: '14px',
-                        }}
-                      >
-                        {comment.content}
-                      </p>
-                    </div>
+              <ul>
+                {comments.map((comment: Comment, index: number) => (
+                  <li key={index}>
+                    <section>
+                      <img src="/user-avatar.png" />
+                      <p className="user-paragraph-comments">{comment.user}</p>
+                      <p className="content-paragraph-comments">{comment.content}</p>
+                    </section>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </section>
   )
 }
