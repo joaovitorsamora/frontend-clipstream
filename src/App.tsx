@@ -34,7 +34,7 @@ export const App = () => {
 
   useEffect(() => {
     axios
-      .get('/api/articles')
+      .get('https://backend-clipstream.vercel.app/api/articles')
       .then((response) => {
         setPreviewData(response.data)
         setLoading(false)
