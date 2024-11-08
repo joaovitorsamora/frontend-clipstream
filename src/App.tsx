@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { Card, P5Sketch, Title, LinkPreview } from './components'
+import { Card, P5Sketch, Title } from './components'
 import './App.css'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useDispatch, useSelector } from 'react-redux'
