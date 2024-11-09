@@ -99,46 +99,50 @@ export const App = () => {
         </P5Sketch>
       </header>
       <main className="main">
-        <section className="video-list">
-          {filteredVideos.map((video, index) => {
-            console.log(video)
-            return (
-              <div className="card" key={index}>
-                <Card id={video.id} url={video.url} title={video.title} />
-              </div>
-            )
-          })}
-        </section>
-        <section className="carousel-container">
-          <div id="carousel" className="carousel" ref={carousel}>
-            {previewData.map((item: LinksProps) => {
-              const { id, title, url, description, site, image } = item
+        <div>
+          <section className="video-list">
+            {filteredVideos.map((video, index) => {
+              console.log(video)
               return (
-                <div className="item" key={id}>
-                  <div className="item-container" onClick={() => handleClickLink(url)}>
-                    <div className="info">
-                      <h3 className="title">
-                        {title} - {site}
-                      </h3>
-                      <span className="description">{description}</span>
-                    </div>
-                    <div className="image">
-                      <img src={image} alt={title} />
-                    </div>
-                  </div>
+                <div className="card" key={index}>
+                  <Card id={video.id} url={video.url} title={video.title} />
                 </div>
               )
             })}
-          </div>
-          <div className="buttons">
-            <button onClick={handleLeftClick}>
-              <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
-            </button>
-            <button onClick={handleRightClick}>
-              <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
-            </button>
-          </div>
-        </section>
+          </section>
+        </div>
+        <div style={{ backgroundColor: '#000', borderRadius: '10px 10px 0 0' }}>
+          <section className="carousel-container">
+            <div id="carousel" className="carousel" ref={carousel}>
+              {previewData.map((item: LinksProps) => {
+                const { id, title, url, description, site, image } = item
+                return (
+                  <div className="item" key={id}>
+                    <div className="item-container" onClick={() => handleClickLink(url)}>
+                      <div className="info">
+                        <h3 className="title">
+                          {title} - {site}
+                        </h3>
+                        <span className="description">{description}</span>
+                      </div>
+                      <div className="image">
+                        <img src={image} alt={title} />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="buttons">
+              <button onClick={handleLeftClick}>
+                <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
+              </button>
+              <button onClick={handleRightClick}>
+                <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
+              </button>
+            </div>
+          </section>
+        </div>
       </main>
       <footer>Copyright 2024 &copy; - ClipStream</footer>
     </div>
