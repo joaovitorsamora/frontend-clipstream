@@ -5,15 +5,16 @@
   text-decoration: none;
   width: calc(100% - var(--grid-gap));
   overflow: hidden;
+  padding-top: 2rem;
 }
 
-section {
-  margin-top: 0.75rem;
+.video-card-paragraph {
+  margin-top: 0.9rem;
 }
 
-section p {
-  color: hsla(0, 0%, 0%, 0.904);
-  font-size: 0.68rem;
+.video-card-paragraph p {
+  color: #fffbff;
+  font-size: 0.98rem;
   font-weight: 700;
 }
 
@@ -24,8 +25,8 @@ section p {
   border: none;
 }
 
-@media (max-width: 640px) {
-  iframe {
+@media (min-width: 640px) {
+  .iframe-card {
     width: 100%;
   }
 }

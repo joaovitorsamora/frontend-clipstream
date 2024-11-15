@@ -15,6 +15,8 @@ export const VideoDetail = () => {
   const { id } = useParams<{ id: string }>()
   const [countComments, setCountComments] = useState<number>(0)
   const [newComments, setNewComments] = useState<string>('')
+  const [likeEnable, setLikeEnable] = useState(true)
+  const [dislikeEnable, setDislikeEnable] = useState(true)
   const dispatch = useDispatch()
 
   const { videos, likes, dislikes, comments } = useSelector(
@@ -39,25 +41,12 @@ export const VideoDetail = () => {
     }
   }, [id, dispatch])
 
-  // useEffect(() => {
-  //   if (id) {
-  //     axios
-  //       .get(`https://backend-clipstream.vercel.app/videos/${id}/comments`)
-  //       .then((response) => {
-  //         dispatch(addComment(response.data.comments))
-  //         setCountComments(response.data.comments.length)
-  //       })
-  //       .catch((error) => {
-  //         console.error('Erro ao buscar comentários:', error)
-  //       })
-  //   }
-  // }, [id, dispatch])
-
   const handleLike = () => {
     axios
       .post(`https://backend-clipstream.vercel.app/videos/${id}/like`)
       .then((response) => {
         dispatch(setLikes(response.data.likes))
+        setLikeEnable(false)
       })
       .catch((error) => {
         console.error(error)
@@ -69,6 +58,7 @@ export const VideoDetail = () => {
       .post(`https://backend-clipstream.vercel.app/videos/${id}/dislike`)
       .then((response) => {
         dispatch(setDislikes(response.data.dislikes))
+        setDislikeEnable(false)
       })
       .catch((error) => {
         console.error(error)
@@ -109,19 +99,22 @@ export const VideoDetail = () => {
               height="450"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              className="iframe-video-player"
             ></iframe>
           </div>
           <div>
             <header className="container-info">
-              <Title level={2}>{videos.title}</Title>
-              <Title level={5} className="paragraph-video-info">
+              <Title level={2} className="title-video-info">
+                {videos.title}
+              </Title>
+              <Title level={3} className="paragraph-video-info">
                 {videos.description}
               </Title>
               <div className="video-actions">
-                <button className="button-like" onClick={handleLike}>
+                <button className="button-like" onClick={handleLike} disabled={!likeEnable}>
                   <ThumbUpOffAltIcon className="thumbup-icon" /> {likes}
                 </button>
-                <button className="button-dislike" onClick={handleDislike}>
+                <button className="button-dislike" onClick={handleDislike} disabled={!dislikeEnable}>
                   <ThumbDownOffAltIcon className="thumbdown-icon" /> {dislikes}
                 </button>
               </div>

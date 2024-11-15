@@ -13,7 +13,7 @@ export const Card: React.FC<VideoProps> = ({ id, url, title }) => {
         allowFullScreen
         className="iframe-card"
       />
-      <section>
+      <section className="video-card-paragraph">
         <p>{title}</p>
       </section>
     </Link>

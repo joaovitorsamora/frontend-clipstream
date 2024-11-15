@@ -10,14 +10,15 @@ import { ThunkDispatch } from 'redux-thunk'
 import type { RootState } from './redux/store'
 import { VideoAction } from './redux/video/reducer'
 import { LinksProps } from './types'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
 
 export const App = () => {
   const dispatch = useDispatch<ThunkDispatch<RootState, unknown, VideoAction>>()
   const { videos, searchTerms } = useSelector((state: ReturnType<typeof rootReducer>) => state.videoReducer)
-  console.log(videos)
   const [filteredVideos, setFilteredVideos] = useState(videos)
-  const carousel = useRef(null)
   const [previewData, setPreviewData] = useState<LinksProps[]>([])
+
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -53,20 +54,6 @@ export const App = () => {
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSeachTerms(event.target.value))
-  }
-
-  const handleLeftClick = (event: React.MouseEvent) => {
-    event.preventDefault()
-    if (carousel.current) {
-      ;(carousel.current as HTMLElement).scrollLeft -= (carousel.current as HTMLElement).offsetWidth
-    }
-  }
-
-  const handleRightClick = (event: React.MouseEvent) => {
-    event.preventDefault()
-    if (carousel.current) {
-      ;(carousel.current as HTMLElement).scrollLeft += (carousel.current as HTMLElement).offsetWidth
-    }
   }
 
   if (loading) {
@@ -111,35 +98,46 @@ export const App = () => {
             })}
           </section>
         </div>
-        <div style={{ backgroundColor: '#000', borderRadius: '10px 10px 0 0' }}>
+        <div style={{ backgroundColor: '#000', borderRadius: '10px 10px 0 0', boxShadow: '10px 2px ##111111' }}>
           <section className="carousel-container">
-            <div id="carousel" className="carousel" ref={carousel}>
-              {previewData.map((item: LinksProps) => {
-                const { id, title, url, description, site, image } = item
-                return (
-                  <div className="item" key={id}>
-                    <div className="item-container" onClick={() => handleClickLink(url)}>
-                      <div className="info">
-                        <h3 className="title">
-                          {title} - {site}
-                        </h3>
-                        <span className="description">{description}</span>
+            <div className="carousel">
+              <Swiper
+                breakpoints={{
+                  320: { slidesPerView: 1, spaceBetween: 80 },
+                  480: { slidesPerView: 1, spaceBetween: 40 },
+                  768: { slidesPerView: 2, spaceBetween: 25 },
+                  1024: { slidesPerView: 2, spaceBetween: 45 },
+                }}
+                freeMode
+                centeredSlides
+                grabCursor
+                centeredSlidesBounds
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper: any) => console.log(swiper)}
+              >
+                {previewData.map((item: LinksProps) => {
+                  const { id, title, url, description, site, image } = item
+                  return (
+                    <SwiperSlide>
+                      <div className="swiper-styles">
+                        <div className="item" key={id}>
+                          <div className="item-container" onClick={() => handleClickLink(url)}>
+                            <div className="info">
+                              <h3 className="title">
+                                {title} - {site}
+                              </h3>
+                              <span className="description">{description}</span>
+                            </div>
+                            <div className="image">
+                              <img src={image} alt={title} />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="image">
-                        <img src={image} alt={title} />
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            <div className="buttons">
-              <button onClick={handleLeftClick}>
-                <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
-              </button>
-              <button onClick={handleRightClick}>
-                <img src="/iconmonstr-arrow-24-240.png" alt="arrow" />
-              </button>
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
             </div>
           </section>
         </div>

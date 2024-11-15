@@ -1,5 +1,5 @@
 :root {
-  --grid-item-max-width: 100%;
+  --grid-item-min-width: 100%;
   --grid-gap: 2rem;
   --padding: 2rem;
   --input-padding: 0.3rem;
@@ -26,13 +26,12 @@ body {
 
 .main {
   flex-grow: 1;
+  background-color: #111111;
 }
 
 .header-container {
   position: relative;
   width: 100%;
-  height: 15vh;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -56,7 +55,7 @@ body {
   position: absolute;
   top: 3.4rem;
   padding: var(--input-padding);
-  width: 20%;
+  width: 46%;
   color: #fff;
   border-radius: 0.2rem;
   background-color: #434343a6;
@@ -68,12 +67,12 @@ body {
 .video-list {
   display: grid;
   justify-items: center;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .card {
   display: flex;
-  padding: 1rem 1rem;
+  margin: 1rem 1rem;
   width: 100%;
   flex-direction: column;
   justify-content: center;
@@ -83,7 +82,7 @@ body {
 .carousel-container {
   display: flex;
   flex-direction: column;
-  max-width: 75vw;
+  max-width: 80vw;
   margin: 0 auto;
 }
 
@@ -91,17 +90,23 @@ body {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
+  margin-top: 2rem;
 }
 
 .carousel-container .carousel::-webkit-scrollbar {
   display: none;
 }
 
+.swiper-styles {
+  display: flex;
+  flex-direction: column;
+}
+
 .carousel-container .carousel .item {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  margin: 1rem 2rem;
+  background-color: #fffaff;
+  margin: 1rem;
   padding: 10px;
   width: 280px;
   border-radius: 16px;
@@ -112,7 +117,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  cursor: pointer;
+  cursor: grab;
 }
 
 .container .carousel .item .image {
@@ -126,7 +131,7 @@ body {
 }
 
 .container .carousel .item .info {
-  height: 140px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -136,27 +141,6 @@ body {
   margin-bottom: 14px;
 }
 
-.carousel-container .buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-container .buttons button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.carousel-container .buttons button img {
-  width: 26px;
-  color: #fff;
-}
-
-.carousel-container .buttons button:first-child img {
-  transform: rotate(180deg);
-}
-
 footer {
   text-align: center;
   padding: 1.5rem;
@@ -164,52 +148,22 @@ footer {
   color: #fff;
 }
 
-@media (max-width: 1280px) {
+@media (min-width: 768px) {
+  .video-input-search {
+    width: 28%;
+  }
+
+  .video-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
   .video-list {
     grid-template-columns: repeat(3, 1fr);
   }
-}
-
-@media (max-width: 1024px) {
-  .video-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .video-input-search {
-    width: 28%;
-  }
-
-  .video-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .video-input-search {
-    width: 28%;
-  }
-
-  .video-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .video-list {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .video-title {
-    left: 0.5rem;
-  }
-
-  .menu-icon {
-    right: 0.5rem;
-  }
-
-  .video-input-search {
-    width: 80%;
+  .carousel-container .carousel .item {
+    width: 280px;
+    height: 384px;
   }
 }
