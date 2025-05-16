@@ -1,10 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import p5 from 'p5'
 import './styles.css'
-
-interface P5SketchProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode
-}
+import { P5SketchProps } from '@/src/types'
 
 export const P5Sketch: React.FC<P5SketchProps> = ({ children, ...props }) => {
   const sketchRef = useRef<HTMLDivElement | null>(null)
