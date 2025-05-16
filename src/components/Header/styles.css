@@ -1,0 +1,21 @@
+.header-container {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.menu-icon {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.video-title {
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+}
