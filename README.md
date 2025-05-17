@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+# 🚀 ClipStream
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**ClipStream** é uma aplicação web moderna para exibição, busca e interação com vídeos e artigos, integrando recursos de frontend reativo, gerenciamento de estado global e consumo de APIs externas.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Funcionalidades
 
-### `npm start`
+- 🔍 **Busca de Vídeos**: Pesquisa instantânea de vídeos por título.  
+- 🎬 **Listagem de Vídeos**: Exibição de vídeos em cards, com player embutido.  
+- 📄 **Detalhes do Vídeo**: Página dedicada com player, likes, dislikes e comentários.  
+- 💬 **Comentários**: Usuários podem comentar nos vídeos.  
+- 👍👎 **Likes/Dislikes**: Interação de likes e dislikes.  
+- 📰 **Artigos em Destaque**: Carrossel de artigos com visualização e contagem de visualizações.  
+- 📱 **Responsividade**: Layout adaptável para qualquer dispositivo.  
+- 🌌 **Animação no Header**: Efeito visual com p5.js no cabeçalho.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠️ Tecnologias Utilizadas
 
-### `npm test`
+- **React 18** ⚛️  
+- **Redux & Redux Thunk** 🗃️  
+- **TypeScript** 🟦  
+- **React Router DOM** 🔗  
+- **Axios** 🔄  
+- **p5.js** (animações no header) 🎨  
+- **Swiper** (carrossel de artigos) 🏞️  
+- **Material UI Icons** 🎨  
+- **Jest & Testing Library** 🧪  
+- **Prettier** 💅  
+- **New Relic Browser Agent** 📈  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🏗️ Implementações
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔧 Gerenciamento de Estado
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Redux para vídeos, detalhes e artigos, com **actions** e **reducers** modulares.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🔄 Hooks Customizados
 
-### `npm run eject`
+- `useFilteredVideos`: Filtra vídeos conforme o termo de busca.  
+- `useFetchData`: Busca vídeos e artigos via API.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 🧩 Componentização
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Componentes reutilizáveis para Header, Card, Input, Title, Carrossel, entre outros.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 🔗 Integração com API
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Consome endpoints para vídeos e artigos, incluindo atualização de views e comentários.
 
-## Learn More
+### 🎨 Estilização Modular
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- CSS modularizado por componente, com responsividade e suporte a tema escuro.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+## 📁 Estrutura do Projeto
+
+```text
+frontend-clipStream/
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.tsx
+│   ├── index.tsx
+│   ├── types.ts
+│   ├── components/
+│   │   ├── Header/
+│   │   ├── Card/
+│   │   ├── Carousel/
+│   │   ├── Articles/
+│   │   ├── FilteredVideos/
+│   │   ├── Input/
+│   │   ├── P5Sketch/
+│   │   └── Title/
+│   ├── hooks/
+│   │   ├── useFilteredVideos.tsx
+│   │   └── useFetchData.tsx
+│   ├── pages/
+│   │   └── VideoDetail/
+│   ├── redux/
+│   │   ├── articles/
+│   │   ├── video/
+│   │   ├── video-detail/
+│   │   ├── root-reducer.tsx
+│   │   └── store.tsx
+│   └── App.css
+├── package.json
+└── README.md
+```
+
+---
+
+## 📝 Alterações e Melhorias
+
+- Refatoração para uso de TypeScript em todos os componentes.  
+- Modularização dos reducers e actions do Redux.  
+- Implementação de hooks customizados para filtragem e fetch de dados.  
+- Adição de animação p5.js no header.  
+- Responsividade aprimorada com CSS modular.  
+- Integração do carrossel de artigos com Swiper.  
+- Melhoria na UX de busca e carregamento.
+
+---
+
+## 📦 Instalação
+
+Para clonar e executar o projeto localmente:
+
+```bash
+git clone https://github.com/seu-usuario/frontend-clipStream.git
+cd frontend-clipStream
+npm install
+npm start
+```
+
