@@ -112,7 +112,7 @@ frontend-clipStream/
 Para clonar e executar o projeto localmente:
 
 ```bash
-git clone https://github.com/seu-usuario/frontend-clipStream.git
+git clone https://github.com/joaovitorsamora/frontend-clipStream.git
 cd frontend-clipStream
 npm install
 npm start
