@@ -1,7 +1,15 @@
-export { Title } from './Title'
-export { Card } from './Card'
-export { P5Sketch } from './P5Sketch'
-export { Input } from './Input'
-export { Header } from './Header'
-export { FilteredVideos } from './FilteredVideos'
-export { Articles } from './Articles'
+import { CardComponent } from './CardComponent'
+import { Articles } from './Articles'
+import { Header } from './Header'
+import FilteredVideos from './FilteredVideos'
+import { Carousel } from './Carousel'
+import ExpandableText from './ExpandableText'
+import { SkeletonArticleCard } from './SkeletonArticleCard'
+import { SkeletonVideoCard } from './SkeletonVideoCard'
+
+export default {
+  FilteredVideos,
+  ExpandableText,
+}
+
+export { CardComponent, Articles, Header, Carousel, SkeletonArticleCard, SkeletonVideoCard }
