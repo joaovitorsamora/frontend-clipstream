@@ -5,22 +5,22 @@ import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { RootState } from '../redux/store'
 import { VideoAction } from '../redux/video/reducer'
-import { LinksProps, useFetchDataProps } from '../types'
+import { LinksProps } from '../types'
 
-export const useFetchData = ({ urls }: useFetchDataProps) => {
+export const useFetchData = () => {
   const dispatch = useDispatch<ThunkDispatch<RootState, unknown, VideoAction>>()
   const [loading, setLoading] = useState(true)
-  const [previewData, setPreviewData] = useState<LinksProps[]>([])
+  const [articlesData, setArticlesData] = useState<LinksProps[]>([])
+
+  const url_videos = process.env.REACT_APP_API_URL_VIDEOS as string
+  const url_articles = process.env.REACT_APP_API_URL_ARTICLES as string
 
   useEffect(() => {
     setLoading(true)
-    Promise.all([
-      axios.get('https://backend-clipstream.vercel.app/videos'),
-      axios.get('https://backend-clipstream.vercel.app/api/articles'),
-    ])
+    Promise.all([axios.get(url_videos), axios.get(url_articles)])
       .then(([videoRes, articleRes]) => {
         dispatch(setVideos(videoRes.data))
-        setPreviewData(articleRes.data)
+        setArticlesData(articleRes.data)
       })
       .catch((error) => {
         console.error(error)
@@ -32,6 +32,7 @@ export const useFetchData = ({ urls }: useFetchDataProps) => {
 
   return {
     loading,
-    previewData,
+    articlesData,
+    setArticlesData,
   }
 }
