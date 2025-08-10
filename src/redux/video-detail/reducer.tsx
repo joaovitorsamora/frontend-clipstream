@@ -1,25 +1,23 @@
 import { VideoAction } from '../video/reducer'
-import { VideoProps } from '../../types'
+import { VideoDetailState } from '../../types'
 import { ADD_COMMENT, SET_COMMENTS, SET_DISLIKES, SET_LIKES, SET_VIDEO_DETAIL } from './actions-types'
 
-export interface Comment {
-  id: string
-  content: string
-  user: string
-}
-
-export interface VideoDetailState {
-  videos: VideoProps[]
-  likes: number
-  dislikes: number
-  comments: Comment[]
-}
-
 const initialState: VideoDetailState = {
-  videos: [],
+  videos: {
+    id: 0,
+    url: '',
+    title: '',
+    description: '',
+  },
   likes: 0,
   dislikes: 0,
-  comments: [],
+  comments: [
+    {
+      id: '',
+      content: '',
+      user: '',
+    },
+  ],
 }
 
 const videoDetailReducer = (state = initialState, action: VideoAction) => {
@@ -27,7 +25,12 @@ const videoDetailReducer = (state = initialState, action: VideoAction) => {
     case SET_VIDEO_DETAIL:
       return {
         ...state,
-        videos: action.payload,
+        videos: {
+          id: action.payload?.id ?? 0,
+          url: action.payload?.url ?? '',
+          title: action.payload?.title ?? '',
+          description: action.payload?.description ?? '',
+        },
       }
 
     case SET_LIKES:
