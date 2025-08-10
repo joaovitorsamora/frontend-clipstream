@@ -1,8 +1,21 @@
 interface VideoProps {
-    id: number;
-    url: string;
-    title: string;
-    description?: string;
+  id: number
+  url: string
+  title: string
+  description?: string
+}
+
+interface Comment {
+  id: string
+  content: string
+  user: string
+}
+
+interface VideoDetailState {
+  videos: VideoProps
+  likes: number
+  dislikes: number
+  comments: Comment[]
 }
 
 interface LinksProps {
@@ -16,10 +29,10 @@ interface LinksProps {
 }
 
 interface HeaderProps {
-  title: string
+  title?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   value: string
-  placeholder: string
+  placeholder?: string
 }
 
 interface InputProps {
@@ -54,12 +67,14 @@ interface useFetchDataProps {
 }
 
 export type {
-    VideoProps,
-    TitleProps,
-    P5SketchProps,
-    LinksProps,
-    InputProps,
-    HeaderProps,
-    CarouselProps,
-    useFetchDataProps
+  VideoProps,
+  VideoDetailState,
+  TitleProps,
+  P5SketchProps,
+  LinksProps,
+  InputProps,
+  HeaderProps,
+  CarouselProps,
+  useFetchDataProps,
+  Comment,
 }
