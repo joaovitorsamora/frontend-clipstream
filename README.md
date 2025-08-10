@@ -1,46 +1,137 @@
-# Getting Started with Create React App
+# 🚀 ClipStream
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**ClipStream** é uma aplicação web moderna e responsiva para **exibição, busca e interação com vídeos e artigos**, com foco em performance, reatividade e excelente experiência do usuário. A arquitetura foi aprimorada com hooks customizados, state management escalável e estilização modular com suporte a dark mode.
 
-## Available Scripts
+![Demo do ClipStream](./public/ClipstreamGIF.gif)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 🔍 **Busca de Vídeos:** Filtro instantâneo por título com debounce.
+- 🎬 **Listagem de Vídeos:** Cards com thumbnails interativos e botão de play.
+- 📄 **Detalhes do Vídeo:** Página dedicada com player, likes, dislikes e comentários.
+- 💬 **Comentários:** Interação em tempo real com envio assíncrono e username randômico.
+- 👍👎 **Likes/Dislikes:** Sistema reativo com controle de estado e persistência.
+- 📰 **Artigos em Destaque:** Carrossel estilizado com contagem de visualizações.
+- 📱 **Responsividade Completa:** Adaptável de mobile a 4K.
+- 🌘 **Dark Mode:** Ativado por tokens via `oklch` com Tailwind.
+- 🌌 **Animação p5.js:** Efeito dinâmico no header com WebGL.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tecnologias Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Tecnologia             | Descrição                                         |
+| ---------------------- | ------------------------------------------------- |
+| **React 18**           | SPA moderna com JSX e reatividade                 |
+| **TypeScript**         | Tipagem segura e modularização avançada           |
+| **Redux + Thunk**      | Gerenciamento global assíncrono                   |
+| **React Router DOM**   | Navegação entre páginas                           |
+| **Axios**              | Requisições HTTP com interceptadores              |
+| **Swiper**             | Carrossel de artigos responsivo                   |
+| **p5.js**              | Animação vetorial no header                       |
+| **Material UI Icons**  | Ícones para ações interativas                     |
+| **Jest + Testing Lib** | Testes unitários de actions e reducers            |
+| **TailwindCSS**        | Estilização com utilitários e dark mode integrado |
+| **New Relic**          | Monitoramento de performance                      |
+| **Prettier**           | Padronização de código                            |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔧 Implementações Técnicas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🎯 Estado Global com Redux
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `videoReducer`: Lista de vídeos e termos de busca
+- `videoDetailReducer`: Detalhes, likes, dislikes e comentários
+- Modularização com actions e reducers separados
 
-### `npm run eject`
+### 🧪 Testes Unitários
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Cobertura de actions e reducers
+- Testes com Jest e React Testing Library
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🧩 Componentização
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `CardComponent`, `Carousel`, `Header`, `Input`, `ExpandableText`, `Skeletons`, `Typography`
+- Design escalável com props reutilizáveis
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 📦 Hooks Customizados
 
-## Learn More
+- `useFilteredVideos`: Filtra resultados conforme o termo de busca
+- `useFetchData`: Consome vídeos e artigos via `.env` com loading controlado
+- `useCheckScreen`: Detecta breakpoints responsivamente
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🎨 Estilização Modular
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Tailwind com tokens `oklch` para temas claro/escuro
+- Layout responsivo com `clamp`, `grid`, `aspect-video`
+
+---
+
+## 📈 Melhorias Recentes
+
+| Área         | Antes                           | Depois                                    |
+| ------------ | ------------------------------- | ----------------------------------------- |
+| Estilização  | CSS Modules e classes repetidas | Tailwind com tokens e utilitários         |
+| Player       | `<iframe>` direto no card       | Thumbnail com botão play personalizado    |
+| UX           | Descrição fixa                  | Texto expandível (ver mais/ver menos)     |
+| Carregamento | Nenhum feedback visual          | Skeleton loaders para vídeos e artigos    |
+| API Fetch    | URLs hardcoded                  | Uso de `.env` com hook customizado        |
+| Dark Mode    | Ausente                         | Implementado via `:root` e `oklch`        |
+| Redux        | Estrutura inflada e acoplada    | Divisão por domínio com testes            |
+| Comentários  | Inline e misturados             | Componente isolado com avatar e user fake |
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+frontend-clipStream/
+├── public/
+│ └── index.html
+├── src/
+│ ├── App.tsx
+│ ├── index.tsx
+│ ├── types.ts
+│ ├── components/
+│ │ ├── Header/
+│ │ ├── Card/
+│ │ ├── Carousel/
+│ │ ├── Articles/
+│ │ ├── FilteredVideos/
+│ │ ├── Input/
+│ │ ├── P5Sketch/
+│ │ ├── Typography/
+│ │ ├── ExpandableText/
+│ │ └── Skeleton/
+│ ├── hooks/
+│ │ ├── useFilteredVideos.tsx
+│ │ ├── useFetchData.tsx
+│ │ └── useCheckScreen.tsx
+│ ├── pages/
+│ │ └── VideoDetail/
+│ ├── redux/
+│ │ ├── video/
+│ │ ├── video-detail/
+│ │ └── root-reducer.ts
+│ ├── styles/
+│ │ └── tailwind.config.css
+│ └── App.css
+├── .env
+├── package.json
+└── README.md
+
+```
+
+---
+
+## 📝 Instalação
+
+```bash
+git clone https://github.com/joaovitorsamora/frontend-clipStream.git
+cd frontend-clipStream
+npm install
+npm start
+```
