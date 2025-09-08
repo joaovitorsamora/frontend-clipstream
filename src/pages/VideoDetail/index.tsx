@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,10 +10,12 @@ import { Comment } from '../../types'
 import { TypographyH2 } from '../../ui/Typography/TypographyH2'
 import { TypographyH3 } from '../../ui/Typography/TypographyH3'
 import ExpandableText from '../../components/ExpandableText'
+import { DefaultPage } from '../../components/DefaultPage'
 
 const generateUsername = () => `user${Math.floor(Math.random() * 1000000000)}`
 const VideoDetail = () => {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [countComments, setCountComments] = useState<number>(0)
   const [newComments, setNewComments] = useState<string>('')
   const [likeEnable, setLikeEnable] = useState(true)
@@ -40,6 +42,12 @@ const VideoDetail = () => {
         })
     }
   }, [id, dispatch])
+
+  useEffect(() => {
+    if (isNaN(Number(id))) {
+      navigate('/')
+    }
+  }, [id, navigate])
 
   const handleLike = () => {
     axios
@@ -86,7 +94,7 @@ const VideoDetail = () => {
   }
 
   return (
-    <section className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-6 text-white bg-black min-h-screen">
+    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-6 text-white bg-black min-h-screen">
       {videos && (
         <div key={videos.id} className="w-full max-w-screen-xl flex flex-col gap-6">
           <div className="w-full flex justify-center">
@@ -150,7 +158,7 @@ const VideoDetail = () => {
           </div>
         </div>
       )}
-    </section>
+    </div>
   )
 }
 
