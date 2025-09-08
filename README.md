@@ -6,6 +6,12 @@
 
 ---
 
+## Deploy
+
+```bash
+https://frontend-clipstream.vercel.app/
+```
+
 ## ✨ Funcionalidades
 
 - 🔍 **Busca de Vídeos:** Filtro instantâneo por título com debounce.
@@ -16,7 +22,6 @@
 - 📰 **Artigos em Destaque:** Carrossel estilizado com contagem de visualizações.
 - 📱 **Responsividade Completa:** Adaptável de mobile a 4K.
 - 🌘 **Dark Mode:** Ativado por tokens via `oklch` com Tailwind.
-- 🌌 **Animação p5.js:** Efeito dinâmico no header com WebGL.
 
 ---
 
@@ -116,9 +121,9 @@ frontend-clipStream/
 │ │ ├── video/
 │ │ ├── video-detail/
 │ │ └── root-reducer.ts
-│ ├── styles/
-│ │ └── tailwind.config.css
 │ └── App.css
+│
+│
 ├── .env
 ├── package.json
 └── README.md
@@ -130,8 +135,8 @@ frontend-clipStream/
 ## 📝 Instalação
 
 ```bash
-git clone https://github.com/joaovitorsamora/frontend-clipStream.git
-cd frontend-clipStream
+git clone https://github.com/joaovitorsamora/frontend-clipdtream.git
+cd frontend-clipstream
 npm install
 npm start
 ```
