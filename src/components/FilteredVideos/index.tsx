@@ -19,7 +19,7 @@ const FilteredVideos = () => {
         justify-items-center 
         gap-6 
         px-4 
-        pt-6 
+        pt-4 
         2xl:gap-[20rem] 
         2xl:px-[8rem]
       "
