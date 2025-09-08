@@ -1,42 +1,19 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-// import { VideoProps } from '../../types'
-// import { Card, CardContent, CardFooter } from '../../ui/Card/card'
-
-// export const CardComponent: React.FC<VideoProps> = ({ id, url, title }) => {
-//   return (
-//     <Link
-//       to={`/pages/VideoDetail/${id}`}
-//       className="flex flex-col rounded-[4px] w-full overflow-hidden pt-8 no-underline"
-//     >
-//       <Card className="bg-transparent shadow-none border-none p-0 flex flex-col md:mx-4 md:my-4 min-w-full justify-center items-center">
-//         <CardContent className="p-0 relative z-10 will-change-auto">
-//           <iframe
-//             key={id}
-//             src={url}
-//             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//             allowFullScreen
-//             className="w-full  border-none rounded-[4px] aspect-video pointer-events-none bg-black"
-//           />
-//         </CardContent>
-//         <CardFooter className="mt-[0.9rem] no-underline text-white text-[0.98rem] font-bold">{title}</CardFooter>
-//       </Card>
-//     </Link>
-//   )
-// }
-
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { VideoProps } from '../../types'
 import { Card, CardContent, CardFooter } from '../../ui/Card/card'
 
-export const CardComponent: React.FC<VideoProps> = ({ id, url, title }) => {
+export const CardComponent: React.FC<VideoProps> = ({ id, title }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    sessionStorage.setItem('canAccessVideo', 'true')
+    navigate(`/pages/VideoDetail/${id}`)
+  }
+
   return (
-    <Link
-      to={`/pages/VideoDetail/${id}`}
-      className="flex flex-col rounded-[4px] w-full overflow-hidden pt-8 no-underline"
-    >
-      <Card className="bg-transparent shadow-none border-none p-0 flex flex-col md:mx-4 md:my-4 min-w-full justify-center items-center">
+    <div onClick={handleClick} className="flex flex-col rounded-[4px] w-full overflow-hidden pt-8 cursor-pointer">
+      <Card className="bg-transparent shadow-none border-none p-0 flex flex-col min-w-full justify-center items-center">
         <CardContent className="p-0 relative z-10 will-change-auto w-full aspect-video">
           <img
             src={`/thumbnails/${id}.jpeg`}
@@ -58,6 +35,6 @@ export const CardComponent: React.FC<VideoProps> = ({ id, url, title }) => {
         </CardContent>
         <CardFooter className="mt-[0.9rem] no-underline text-white text-[0.98rem] font-bold">{title}</CardFooter>
       </Card>
-    </Link>
+    </div>
   )
 }
